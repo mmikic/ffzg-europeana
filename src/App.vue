@@ -22,62 +22,27 @@
             <p>Ovaj projekt izrađen je za kolegij XXX pri filozofskom fakultetu Sveučilišta u Zagrebu. Informativne je prirode i kao takav nije namijenjen za širu uporabu.</p>
           </section>
 
-          <el-menu default-active="1">
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-search"></i>
-                <span>Search</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">Izlist /GET/</el-menu-item>
-                <el-menu-item index="1-2">Dohvat /GET/{id}</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
-                <i class="el-icon-tickets"></i>
-                <span>Result</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">Izlist /GET/</el-menu-item>
-                <el-menu-item index="1-2">Dohvat /GET/{id}</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
-                <i class="el-icon-picture-outline"></i>
-                <span>Entity</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">Izlist /GET/</el-menu-item>
-                <el-menu-item index="1-2">Dohvat /GET/{id}</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="4">
-              <template slot="title">
-                <i class="el-icon-edit"></i>
-                <span>Annotation</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1">Izlist /GET/</el-menu-item>
-                <el-menu-item index="1-2">Dohvat /GET/{id}</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-          </el-menu>
+          <!-- Inject navigation -->
+          <navigation />
+
         </el-aside>
         <el-main>
 
-          <h2>Search API</h2>
+          <!-- Inject router -->
+          <router-view/>
 
-          <el-menu default-active="1" class="ffzgeaMain__tabs" mode="horizontal">
-            <el-menu-item index="2">Izvorni kôd</el-menu-item>
-            <el-menu-item index="1">Pregled</el-menu-item>
-          </el-menu>
 
         </el-main>
       </el-container>
     </el-container>
 
-    <router-view/>
   </div>
 </template>
+<script>
+import navigation from '@/components/Navigation'
+export default {
+    components: {
+        navigation
+    }
+}
+</script>
