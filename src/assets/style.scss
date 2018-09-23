@@ -39,8 +39,6 @@ html, body, #app {
 	}
 
 	&__user {
-
-
 	  display: flex;
 	  justify-content: flex-end;
 	}
@@ -52,6 +50,12 @@ html, body, #app {
 	&__tabs {
 	  display: flex;
 	  flex-direction: row-reverse;
+	}
+
+	&__query {
+	  background-color: $c-lavander-grey;
+	  padding: 1rem;
+	  font-family: serif;
 	}
 
   }
@@ -67,4 +71,25 @@ html, body, #app {
 
   }
 
+  &Results {
+
+	&__image,
+	&__image img {
+	  width: 100%;
+	  height: auto;
+	}
+
+  }
+
+  &Search {
+	.el-form-item:not(:last-of-type) {
+	  margin-bottom: 0;
+	}
+  }
+
+}
+
+.el-color-dropdown__main-wrapper,
+.el-color-dropdown__value {
+  display: none;
 }

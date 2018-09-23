@@ -17,13 +17,13 @@
         <el-submenu index="2">
             <template slot="title">
                 <i class="el-icon-tickets"></i>
-                <span>Result</span>
+                <span>Record</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="2-1" @click="$router.push({ name: 'resultAll' })">
+                <el-menu-item index="2-1" @click="$router.push({ name: 'recordAll' })">
                     Izlist /GET/
                 </el-menu-item>
-                <el-menu-item index="2-2" @click="$router.push({ name: 'resultFind' })">
+                <el-menu-item index="2-2" @click="$router.push({ name: 'recordFind' })">
                     Dohvat /GET/{id}
                 </el-menu-item>
             </el-menu-item-group>

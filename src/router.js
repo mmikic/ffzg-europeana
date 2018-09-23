@@ -6,8 +6,8 @@ import Home from './views/Home.vue'
 import SearchAll from '@/views/SearchAPI/SearchAll'
 import SearchFind from '@/views/SearchAPI/SearchFind'
 
-import ResultAll from '@/views/ResultAPI/ResultAll'
-import ResultFind from '@/views/ResultAPI/ResultFind'
+import RecordAll from '@/views/RecordAPI/RecordAll'
+import RecordFind from '@/views/RecordAPI/RecordFind'
 
 import EntityAll from '@/views/EntityAPI/EntityAll'
 import EntityFind from '@/views/EntityAPI/EntityFind'
@@ -35,14 +35,14 @@ export default new Router({
       component: SearchFind
     },
     {
-      path: '/result-api',
-      name: 'resultAll',
-      component: ResultAll
+      path: '/record-api',
+      name: 'recordAll',
+      component: RecordAll
     },
     {
-      path: '/result-api/f/:id?',
-      name: 'resultFind',
-      component: ResultFind
+      path: '/record-api/f/:id?',
+      name: 'recordFind',
+      component: RecordFind
     },
     {
       path: '/annotation-api',
