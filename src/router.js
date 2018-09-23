@@ -18,14 +18,15 @@ import AnnotationFind from '@/views/AnnotationAPI/AnnotationFind'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'searchAll',
+      component: SearchAll
     },
     {
-      path: '/search-api',
+      path: '/search-api/',
       name: 'searchAll',
       component: SearchAll
     },

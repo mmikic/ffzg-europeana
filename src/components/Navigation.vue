@@ -3,18 +3,15 @@
         <el-submenu index="1">
             <template slot="title">
                 <i class="el-icon-search"></i>
-                <span>Search</span>
+                <span>Search API</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="1-1" @click.prevent="$router.push({ name: 'searchAll' })">
-                    Izlist /GET/
-                </el-menu-item>
-                <el-menu-item index="1-2" @click="$router.push({ name: 'searchFind' })">
-                    Dohvat /GET/{id}
+                <el-menu-item index="1-1" @click="$router.push({ name: 'searchAll' })">
+                    Pretraga entiteta
                 </el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="2">
+        <el-submenu index="2" disabled>
             <template slot="title">
                 <i class="el-icon-tickets"></i>
                 <span>Record</span>
@@ -28,7 +25,7 @@
                 </el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="3">
+        <el-submenu index="3" disabled>
             <template slot="title">
                 <i class="el-icon-picture-outline"></i>
                 <span>Entity</span>
@@ -42,7 +39,7 @@
                 </el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="4">
+        <el-submenu index="4" disabled>
             <template slot="title">
                 <i class="el-icon-edit"></i>
                 <span>Annotation</span>

@@ -5,8 +5,13 @@ html, body, #app {
   margin: 0;
   padding: 0;
 }
+#app {
+  min-height: 100vh;
+}
 
 .ffzgea {
+
+  min-height: 100vh;
 
   &__header {
 	background-color: $c-outer-space;
@@ -79,9 +84,56 @@ html, body, #app {
 	  height: auto;
 	}
 
+	&__headerToggle {
+	  text-align: right;
+	}
+
+	&__raw {
+	  max-height: 30vh;
+	  overflow: scroll;
+	  font-size: .8rem;
+	}
+
+	&__title {
+	  display: block;
+	}
+
+	&__footer {
+	  padding-top: 1rem;
+	  margin-bottom: 2rem;
+	  text-align: center;
+	}
+
+	&__imageWrap {
+	  max-height: 300px;
+	  min-height: 300px;
+	  overflow: hidden;
+	  display: flex;
+
+	  img {
+		object-fit: cover;
+	  }
+	}
+
+	&__gallery {
+	  padding-top: 1rem;
+	}
+	&__galleryCol {
+	  margin-bottom: 1rem;
+	}
+
   }
 
   &Search {
+
+	margin-bottom: 2rem;
+	border-bottom: .1rem solid $c-lavander-grey;
+
+	&__button {
+	  padding-top: 1rem;
+	  text-align: right;
+	}
+
 	.el-form-item:not(:last-of-type) {
 	  margin-bottom: 0;
 	}
@@ -92,4 +144,8 @@ html, body, #app {
 .el-color-dropdown__main-wrapper,
 .el-color-dropdown__value {
   display: none;
+}
+
+.el-table td {
+  vertical-align: top;
 }
