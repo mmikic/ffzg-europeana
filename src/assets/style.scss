@@ -1,0 +1,70 @@
+
+@import "palette";
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+}
+
+.ffzgea {
+
+  &__header {
+	background-color: $c-outer-space;
+  }
+
+  &__aside {
+	background-color: $c-lavander-grey;
+  }
+
+
+  &Header {
+
+	display: flex;
+	align-items: center;
+
+	.el-row {
+	  display: flex;
+	  flex: 1;
+	  justify-content: space-between;
+	  align-items: center;
+	}
+
+	&__title {
+
+	  flex-grow: 1;
+
+	  h1 {
+		color: $c-white;
+	  }
+	}
+
+	&__user {
+
+
+	  display: flex;
+	  justify-content: flex-end;
+	}
+
+  }
+
+  &Main {
+
+	&__tabs {
+	  display: flex;
+	  flex-direction: row-reverse;
+	}
+
+  }
+
+  &Aside {
+
+	&__about {
+	  padding: 1rem;
+		p {
+		  font-size: .8rem;
+		}
+	}
+
+  }
+
+}
