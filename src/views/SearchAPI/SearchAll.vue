@@ -20,18 +20,14 @@
                     <el-collapse-item title="Osnovna pretraga" name="1">
                         <el-row>
                             <el-col :span="24">
-                                <el-form-item label="Krovni pojam pretrage">
+                                <el-form-item label="Krovni pojam pretrage (npr. Paris)">
                                     <el-input v-model="form.query"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
                     </el-collapse-item>
 
-                    <el-collapse-item title="Sužavanje pretrage - u izradi" name="2">
-                        <small>Opcija je trenutno u izradi</small>
-                    </el-collapse-item>
-
-                    <el-collapse-item title="Dodatni parametri" name="3">
+                    <el-collapse-item title="Dodatni parametri" name="2">
                         <el-row>
                             <el-col :span="8">
 
@@ -91,9 +87,10 @@
                     </el-col>
                 </el-row>
 
-                <template v-if="!settings.loading && settings.displayTable && table">
+                <template v-if="settings.displayTable && table">
                     <el-table
                             :data="table"
+                            v-loading="settings.loading"
                             stripe
                             style="width: 100%">
                         <el-table-column
@@ -101,18 +98,13 @@
                                 label="Preview"
                                 width="200">
                             <div slot-scope="{row}" class="ffzgeaResults__image">
-                                <img :src="row.image" alt="Preview" />
+                                <img :src="row.image" alt="Preview" :key="Math.random()"/>
                             </div>
                         </el-table-column>
                         <el-table-column prop="title" label="Name">
                             <div slot-scope="{row}">
                                 <h2 class="ffzgeaResults__title">{{ row.title | truncate(100) }}</h2>
                                 <el-tag size="mini" type="info" v-for="(tag, index) in row.labels" :key="index" style="margin-right: .4rem;">{{ tag }}</el-tag>
-                            </div>
-                        </el-table-column>
-                        <el-table-column prop="link" label="Poveznica" width="100">
-                            <div slot-scope="{row}">
-                                <el-button size="small">Entitet</el-button>
                             </div>
                         </el-table-column>
                     </el-table>
@@ -159,7 +151,7 @@
                 :closable="false"
                 v-if="!request"
             >
-                Kako bi istraživali pozadinsku logiku, prvo pretražite nešto.
+                Kako bi istraživali pozadinske informacije konkretnog API odgovora, prvo pretražite nešto.
             </el-alert>
 
             <el-collapse value="2" v-else>
@@ -173,6 +165,80 @@
                     <pre class="ffzgeaResults__raw">{{ data }}</pre>
                 </el-collapse-item>
             </el-collapse>
+
+            <section class="ffzgeaInfo">
+                <h3>Programska logika</h3>
+                <p>Za potrebe izrade aplikacije korišten je niz tehnologija čiji se popis nalazi na dnu ove stranice. Međutim, glavnu komunikacijsku logiku obavlja
+                    JavaScript paket <a href="https://github.com/axios/axios" target="_blank">Axios</a> koji predstavlja HTTP klijenta za komunikaciju s API-jem.
+                    Axios pruža niz mogućnosti pri komunikaciji, ali za potrebe pokaznog projekta korištena je samo <code>.get()</code> metoda i vezane funkcionalnosti.
+                </p>
+
+                <p>Upit na API, odnosno pravilno generirana putanja, može se vidjeti poviše, a sastoji se od dva segmenta. Prvi segment jest fiksna putanja do API-ja
+                    uz dodatne parametre koji su potrebni. Konkretno to su API ključ <code>wskey</code> i oznaka kojom od API-ja očekujemo samo zapise koji imaju pripadajuću
+                fotografiju <code>thumbnail</code>. Preostali segment API upita je varijabilan i ovisi o parametrima i stanju aplikacije.</p>
+
+                <p>Preostali segment sastoji se od varijabilnih parametara, konkretno: upita <code>query</code>, prava na korištenje zapisa <code>reusability</code> i
+                oznake boje <code>colourpalette</code>.</p>
+
+                <p>Osim navedenih, prilikom komuniciranja API-ja proslijeđuju se dodatne dvije informacije: broj zapisa po stranici koje želimo dohvatiti <code>rows</code>
+                    koji je definiran na 25, te početnog broja zapisa <code>start</code> čime možemo generirati navigaciju kroz brojne stranice API-ja.</p>
+
+                <h3>Pojašnjenje segmenata kôda</h3>
+                <p>Osnovni format Axios GET upita jest slijedeći:</p>
+                <pre v-highlightjs><code class="javascript">
+axios
+.get('https://adresaapija.com/api/', parametri)
+.then(odgovorApija => funkcija)
+.catch(neuspjeliOdgovor => funkcija)
+                </code></pre>
+
+                <p>U slučaju uspješnog odgovora API-ja, izvršit će se kôd unutar <code>then</code> segmenta, dok u slučaju greške izvršit će se kôd unutar <code>catch</code>
+                segmenta.</p>
+
+                <p>U konkretnom pokaznom primjeru, kôd je slijedeći:</p>
+                <pre v-highlightjs><code class="javascript">
+// posjeti adresu API-ja i proslijedi parametre
+axios.get('https://www.europeana.eu/api/v2/search.json', {
+    params: {
+        wskey,
+        rows: this.results.rows,
+        start: this.results.start,
+        thumbnail: true,
+        ...this.form
+    }
+}).then(({ request, data }) => {
+
+    // obavijesti korisnika da je sve u redu
+    this.$notify.success({ title: 'Search API', message: 'API uspješno odgovorio s podacima' })
+
+    // pospremi rezultate s API-ja u odgovarajuce varijable
+    this.request = request // podaci o poslanom zahtijevu
+    this.data = data // vraceni podaci s API-ja
+    this.results.total = data.totalResults // ukupan broj redaka
+
+    // postavi stanje aplikacije na !ucitavanje
+    this.settings.loading = false
+
+}).catch(error => {
+
+    // zapisi gresku u konzolu
+    console.log(error)
+
+    // obavijesti korisnika o gresci
+    this.$notify.error({ title: 'Search API', message: 'Došlo je do greške prilikom dohvaćanja podataka' })
+
+    // postavi stanje aplikacije na !ucitavanje
+    this.settings.loading = false
+})
+                </code></pre>
+
+                <h3>Preostale informacije o aplikaciji</h3>
+                <p>Aplikacija je izrađena koristeći JavaScript programski jezik i <a href="https://vuejs.org/" target="_blank">Vue.js</a> framework. Dodatno, za
+                    lakšu izradu aplikacijskog sučelja korišten je <a href="http://element.eleme.io/#/en-US" target="_blank">ElementUI</a>. Cijela aplikacija objavljena je
+                    na <a href="http://firebase.google.com" target="_blank">Google Firebase</a> hostingu, a izvorni kôd aplikacije (bez osobnih podataka) dostupan je
+                    na <a href="https://github.com/mmikic/ffzg-europeana" target="_blank">Github repozitoriju</a>.</p>
+
+            </section>
 
         </template>
 
@@ -234,10 +300,19 @@ export default {
             this.getItems()
         },
         getItems() {
+
+            // set the application state to loading
             this.settings.loading = true
+
+            // not a nice place to store an API key, but it works for demo purposes
             const wskey = 'hE5iMGt6Y'
-            axios.get('https://www.europeana.eu/api/v2/search.json', { params:
-                {
+
+            // notify the user a new request has been sent
+            this.$notify.info({ title: 'Search API', message: 'Upit poslan na API' })
+
+            // request the api with provided parameters
+            axios.get('https://www.europeana.eu/api/v2/search.json', {
+                params: {
                     wskey,
                     rows: this.results.rows,
                     start: this.results.start,
@@ -245,11 +320,28 @@ export default {
                     ...this.form
                 }
             }).then(({ request, data }) => {
+
+                // notify the user it's all good
+                this.$notify.success({ title: 'Search API', message: 'API uspješno odgovorio s podacima' })
+
                 this.request = request
                 this.data = data
                 this.results.total = data.totalResults
                 this.settings.loading = false
+
+            }).catch(error => {
+
+                // log the error for demo purposes
+                console.log(error)
+
+                // notify user
+                this.$notify.error({ title: 'Search API', message: 'Došlo je do greške prilikom dohvaćanja podataka' })
+
+                // reset the app state
+                this.settings.loading = false
+
             })
+
         },
     }
 }

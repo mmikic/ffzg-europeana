@@ -7,19 +7,19 @@
           <el-col :span="20" class="ffzgeaHeader__title">
             <h1>FFZG pokazni primjer konzumacije Europeana API-ja</h1>
           </el-col>
-          <el-col :span="4" class="ffzgeaHeader__user">
+          <el-col :span="4" class="ffzgeaHeader__user hidden-sm-and-down">
             <el-button size="mini" type="info">
               <i class="el-icon-setting"></i>
-              Unos autorizacijskog ključa
+              API ključ: hE5iMGt6Y
             </el-button>
           </el-col>
         </el-row>
       </el-header>
       <el-container>
-        <el-aside width="200px" class="ffzgea__aside">
+        <el-aside width="200px" class="ffzgea__aside hidden-sm-and-down">
 
           <section class="ffzgeaAside__about">
-            <p>Ovaj projekt izrađen je za kolegij XXX pri filozofskom fakultetu Sveučilišta u Zagrebu. Informativne je prirode i kao takav nije namijenjen za širu uporabu.</p>
+            <p>Aplikacija je izrađena pri filozofskom fakultetu Sveučilišta u Zagrebu. Informativne je prirode i kao takav nije namijenjen za širu uporabu.</p>
           </section>
 
           <!-- Inject navigation -->

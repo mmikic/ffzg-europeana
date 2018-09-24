@@ -1,5 +1,6 @@
 
 @import "palette";
+@import url('//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css');
 
 html, body, #app {
   margin: 0;
@@ -139,6 +140,33 @@ html, body, #app {
 	}
   }
 
+  &Info {
+	width: 100%;
+	max-width: 768px;
+	padding-top: 1.5rem;
+
+	h3 {
+	  font-size: 1.2rem;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	p {
+	  margin-left: 2rem;
+
+	  code {
+		color: $c-outer-space;
+		font-weight: bold;
+	  }
+	}
+
+	pre {
+	  padding-left: 1rem;
+	  border-left: 2px solid $c-gainsboro;
+	}
+
+  }
+
 }
 
 .el-color-dropdown__main-wrapper,
@@ -148,4 +176,8 @@ html, body, #app {
 
 .el-table td {
   vertical-align: top;
+}
+
+.hljs {
+  background-color: transparent;
 }
