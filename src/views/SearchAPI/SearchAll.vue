@@ -287,7 +287,7 @@ export default {
                     link: item.link,
                     image: item.edmPreview[0],
                     country: item.country,
-                    labels: item.edmConceptLabel.map(x => x.def)
+                    labels: item.edmConceptLabel && item.edmConceptLabel.length && item.edmConceptLabel.map(x => x.def) || []
                 })
             }
             return results
